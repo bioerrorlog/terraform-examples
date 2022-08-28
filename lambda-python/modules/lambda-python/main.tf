@@ -3,7 +3,8 @@
 ####################################################
 
 resource "aws_lambda_function" "this" {
-  function_name = "hello_lambda"
+  function_name = "${var.name_prefix}_hello_lambda"
+  description   = "Hello world lambda."
 
   filename         = data.archive_file.zip.output_path
   source_code_hash = data.archive_file.zip.output_base64sha256
@@ -31,7 +32,7 @@ data "archive_file" "zip" {
 ####################################################
 
 resource "aws_iam_role" "this" {
-  name               = "iam_for_lambda"
+  name               = "${var.name_prefix}_iam_for_lambda"
   assume_role_policy = data.aws_iam_policy_document.assume_lambda.json
 }
 
