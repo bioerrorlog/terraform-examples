@@ -80,8 +80,8 @@ resource "aws_iam_policy" "lambda_logging" {
   policy = templatefile(
     "${path.module}/templates/lambda_logging.json",
     {
-      account_id = data.aws_caller_identity.current.account_id,
-      aws_region = data.aws_region.current.name,
+      account_id = local.account_id
+      aws_region = local.region
     }
   )
 }
