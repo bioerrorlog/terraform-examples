@@ -60,3 +60,37 @@ data "aws_iam_policy_document" "assume_lambda" {
     actions = ["sts:AssumeRole"]
   }
 }
+
+resource "aws_iam_role_policy_attachment" "this" {
+  for_each = {
+    for i in [
+      aws_iam_policy.lambda_logging,
+    ] : i.name => i.arn
+  }
+
+  role       = aws_iam_role.this.name
+  policy_arn = each.value
+}
+
+resource "aws_iam_policy" "lambda_logging" {
+  name        = "${var.name_prefix}_lambda_logging"
+  path        = "/"
+  description = "IAM policy for logging from a lambda"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*",
+      "Effect": "Allow"
+    }
+  ]
+}
+EOF
+}
