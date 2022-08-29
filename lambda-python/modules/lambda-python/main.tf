@@ -77,20 +77,11 @@ resource "aws_iam_policy" "lambda_logging" {
   path        = "/"
   description = "IAM policy for logging from a lambda"
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
+  policy = templatefile(
+    "${path.module}/templates/lambda_logging.json",
     {
-      "Action": [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ],
-      "Resource": "arn:aws:logs:*:*:*",
-      "Effect": "Allow"
+      account_id = data.aws_caller_identity.current.account_id,
+      aws_region = data.aws_region.current.name,
     }
-  ]
-}
-EOF
+  )
 }
