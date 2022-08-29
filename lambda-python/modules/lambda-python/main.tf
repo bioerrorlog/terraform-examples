@@ -43,7 +43,7 @@ resource "aws_cloudwatch_log_group" "this" {
 ####################################################
 
 resource "aws_iam_role" "this" {
-  name               = "${var.name_prefix}_iam_for_lambda"
+  name               = "${var.name_prefix}_role_for_lambda"
   assume_role_policy = data.aws_iam_policy_document.assume_lambda.json
 }
 
