@@ -7,7 +7,7 @@
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
             ],
-            "Resource": "arn:aws:logs:${aws_region}:${account_id}:*"
+            "Resource": "arn:aws:logs:${aws_region}:${account_id}:log-group:${log_group}:*"
         }
     ]
 }

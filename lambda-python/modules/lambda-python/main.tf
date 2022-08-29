@@ -82,6 +82,7 @@ resource "aws_iam_policy" "lambda_logging" {
     {
       account_id = local.account_id
       aws_region = local.region
+      log_group  = aws_cloudwatch_log_group.this.name
     }
   )
 }
