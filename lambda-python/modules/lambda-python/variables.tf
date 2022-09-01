@@ -16,6 +16,10 @@ variable "log_retention_in_days" {
 }
 
 variable "event_schedule" {
-  description = "cron for triggering lambda function. ex) cron(0 0 * * ? *)"
+  description = <<-EOT
+    cron for triggering lambda function.
+    ex) cron(0 0 * * ? *)
+    If null, no schedule will be set.
+  EOT
   type        = string
 }

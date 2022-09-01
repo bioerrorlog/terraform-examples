@@ -27,11 +27,13 @@ data "archive_file" "zip" {
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch" {
+  count = var.event_schedule == null ? 0 : 1
+
   statement_id  = "${var.name_prefix}AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.this.function_name
   principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.this.arn
+  source_arn    = aws_cloudwatch_event_rule.this[0].arn
 }
 
 
@@ -51,14 +53,18 @@ resource "aws_cloudwatch_log_group" "this" {
 ####################################################
 
 resource "aws_cloudwatch_event_rule" "this" {
+  count = var.event_schedule == null ? 0 : 1
+
   name                = "${var.name_prefix}_trigger_lambda"
   description         = "trigger lambda function"
   schedule_expression = var.event_schedule
 }
 
 resource "aws_cloudwatch_event_target" "this" {
+  count = var.event_schedule == null ? 0 : 1
+
   arn  = aws_lambda_function.this.arn
-  rule = aws_cloudwatch_event_rule.this.id
+  rule = aws_cloudwatch_event_rule.this[0].id
 }
 
 
