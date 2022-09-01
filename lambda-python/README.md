@@ -1,4 +1,4 @@
-# lamda-python
+# lambda-python
 
 Simple AWS Lambda with Python.
 
