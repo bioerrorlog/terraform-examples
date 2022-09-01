@@ -15,7 +15,7 @@ variable "log_retention_in_days" {
   default     = 90
 }
 
-variable "event_schedule" {
+variable "lambda_schedule" {
   description = <<-EOT
     cron for triggering lambda function.
     ex) cron(0 0 * * ? *)
