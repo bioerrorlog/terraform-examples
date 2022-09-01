@@ -109,9 +109,7 @@ resource "aws_iam_policy" "lambda_logging" {
   policy = templatefile(
     "${path.module}/templates/lambda_logging.json",
     {
-      account_id = local.account_id
-      aws_region = "*"
-      log_group  = aws_cloudwatch_log_group.this.name
+      log_group_arn = aws_cloudwatch_log_group.this.arn
     }
   )
 }
