@@ -26,6 +26,14 @@ data "archive_file" "zip" {
   output_path = "${path.module}/lambda/hello_lambda.zip"
 }
 
+resource "aws_lambda_permission" "allow_cloudwatch" {
+  statement_id  = "${var.name_prefix}AllowExecutionFromCloudWatch"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.this.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.this.arn
+}
+
 
 ####################################################
 # CloudWatch Logs
@@ -35,6 +43,22 @@ resource "aws_cloudwatch_log_group" "this" {
   name = "/aws/lambda/${aws_lambda_function.this.function_name}"
 
   retention_in_days = var.log_retention_in_days
+}
+
+
+####################################################
+# EventBridge
+####################################################
+
+resource "aws_cloudwatch_event_rule" "this" {
+  name                = "${var.name_prefix}_trigger_lambda"
+  description         = "trigger lambda function"
+  schedule_expression = var.event_schedule
+}
+
+resource "aws_cloudwatch_event_target" "this" {
+  arn  = aws_lambda_function.this.arn
+  rule = aws_cloudwatch_event_rule.this.id
 }
 
 
