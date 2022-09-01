@@ -43,13 +43,12 @@ resource "aws_cloudwatch_log_group" "this" {
 ####################################################
 
 resource "aws_iam_role" "this" {
-  name               = "${var.name_prefix}_role_for_lambda"
+  name               = "${var.name_prefix}_lambda"
   assume_role_policy = data.aws_iam_policy_document.assume_lambda.json
 }
 
 data "aws_iam_policy_document" "assume_lambda" {
   statement {
-    sid    = ""
     effect = "Allow"
 
     principals {
@@ -75,7 +74,7 @@ resource "aws_iam_role_policy_attachment" "this" {
 resource "aws_iam_policy" "lambda_logging" {
   name        = "${var.name_prefix}_lambda_logging"
   path        = "/"
-  description = "IAM policy for logging from a lambda"
+  description = "IAM policy for logging from lambda"
 
   policy = templatefile(
     "${path.module}/templates/lambda_logging.json",
@@ -83,6 +82,19 @@ resource "aws_iam_policy" "lambda_logging" {
       account_id = local.account_id
       aws_region = "*"
       log_group  = aws_cloudwatch_log_group.this.name
+    }
+  )
+}
+
+resource "aws_iam_policy" "trigger_lambda" {
+  name        = "${var.name_prefix}_trigger_lambda"
+  path        = "/"
+  description = "IAM policy for logging from a lambda"
+
+  policy = templatefile(
+    "${path.module}/templates/trigger_lambda.json",
+    {
+      lambda_function_arn = aws_lambda_function.this.arn
     }
   )
 }

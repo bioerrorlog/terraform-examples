@@ -14,3 +14,8 @@ variable "log_retention_in_days" {
   type        = number
   default     = 90
 }
+
+variable "event_schedule" {
+  description = "cron for triggering lambda function. ex) cron(0 0 * * ? *)"
+  type        = string
+}
