@@ -3,6 +3,6 @@ output "lambda" {
 }
 
 output "trigger_lambda_policy" {
-  value = aws_iam_policy.trigger_lambda
+  value       = aws_iam_policy.trigger_lambda
   description = "IAM policy for invoking the lambda"
 }
