@@ -1,3 +1,3 @@
-# lamda-python
+# lamda-go
 
-Simple AWS Lambda with Python.
+Simple AWS Lambda with Go.
