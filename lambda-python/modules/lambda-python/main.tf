@@ -117,7 +117,7 @@ resource "aws_iam_policy" "lambda_logging" {
 resource "aws_iam_policy" "trigger_lambda" {
   name        = "${var.name_prefix}_trigger_lambda"
   path        = "/"
-  description = "IAM policy for logging from a lambda"
+  description = "IAM policy for invoking this lambda"
 
   policy = templatefile(
     "${path.module}/templates/trigger_lambda.json",
