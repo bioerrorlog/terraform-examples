@@ -31,6 +31,10 @@ data "archive_file" "zip" {
   type        = "zip"
   source_file = local.lambda_bin_local_path
   output_path = local.lambda_zip_local_path
+
+  depends_on = [
+    null_resource.go_build
+  ]
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch" {
