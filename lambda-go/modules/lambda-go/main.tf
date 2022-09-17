@@ -76,6 +76,12 @@ resource "aws_cloudwatch_event_target" "this" {
 
   arn  = aws_lambda_function.this.arn
   rule = aws_cloudwatch_event_rule.this[0].id
+
+  input = <<JSON
+{
+  "name": "BioErrorLog"
+}
+JSON
 }
 
 
