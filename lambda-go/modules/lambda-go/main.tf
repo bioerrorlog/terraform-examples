@@ -23,7 +23,8 @@ resource "null_resource" "go_build" {
   }
 
   provisioner "local-exec" {
-    command = "GOOS=linux GOARCH=amd64 go build -o ${local.lambda_bin_local_path} ${local.lambda_local_path}"
+    working_dir = local.lambda_local_path
+    command     = "go build -o ${local.lambda_bin_name}"
   }
 }
 
