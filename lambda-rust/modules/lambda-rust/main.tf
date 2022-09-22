@@ -11,20 +11,20 @@ resource "aws_lambda_function" "this" {
 
   role    = aws_iam_role.this.arn
   handler = local.lambda_bin_name
-  runtime = "go1.x"
+  runtime = "provided.al2"
 }
 
-resource "null_resource" "go_build" {
+resource "null_resource" "rust_build" {
   triggers = {
     code_diff = join("", [
-      for file in fileset(local.lambda_local_path, "**.go")
+      for file in fileset(local.lambda_local_path, "**.rs")
       : filebase64("${local.lambda_local_path}/${file}")
     ])
   }
 
   provisioner "local-exec" {
     working_dir = local.lambda_local_path
-    command     = "go build -o ${local.lambda_bin_name}"
+    command     = "cargo lambda build --release --arm64"
   }
 }
 
@@ -34,7 +34,7 @@ data "archive_file" "zip" {
   output_path = local.lambda_zip_local_path
 
   depends_on = [
-    null_resource.go_build
+    null_resource.rust_build
   ]
 }
 
