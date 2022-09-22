@@ -1,6 +1,6 @@
-# lambda-go
+# lambda-rust
 
-Simple AWS Lambda with Go.
+Simple AWS Lambda with Rust.
 
 ## Architecture
 

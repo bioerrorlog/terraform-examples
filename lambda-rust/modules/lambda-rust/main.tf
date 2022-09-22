@@ -3,8 +3,8 @@
 ####################################################
 
 resource "aws_lambda_function" "this" {
-  function_name = "${var.name_prefix}_go_lambda_sample"
-  description   = "Go lambda sample."
+  function_name = "${var.name_prefix}_rust_lambda_sample"
+  description   = "Rust lambda sample."
 
   filename         = data.archive_file.zip.output_path
   source_code_hash = data.archive_file.zip.output_base64sha256
