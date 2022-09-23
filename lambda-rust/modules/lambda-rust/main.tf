@@ -80,7 +80,7 @@ resource "aws_cloudwatch_event_target" "this" {
 
   input = <<JSON
 {
-  "name": "BioErrorLog"
+  "command": "echo hello!"
 }
 JSON
 }
