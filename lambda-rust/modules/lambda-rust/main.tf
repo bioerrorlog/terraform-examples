@@ -24,7 +24,7 @@ resource "null_resource" "rust_build" {
 
   provisioner "local-exec" {
     working_dir = local.lambda_local_path
-    command     = "cargo lambda build --release --arm64"
+    command     = "cargo lambda build --release"
   }
 }
 
