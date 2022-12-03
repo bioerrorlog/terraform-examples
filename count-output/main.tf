@@ -4,5 +4,5 @@ module "ecr_create_example" {
   create = true
   # create = false
 
-  name_prefix     = "create_example"
+  name_prefix = "create_example"
 }
