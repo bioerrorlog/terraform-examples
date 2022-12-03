@@ -1,3 +1,3 @@
 # Output counted resources
 
-Terraform code example: `output` with `count` regulated resource.
+Small code example: `output` with `count` regulated resource.
