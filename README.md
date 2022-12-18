@@ -15,3 +15,6 @@ Small code example: `output` with `count` regulated resource.
 
 ### [lambda-rust](lambda-rust)
 ![architecture](lambda-rust/img/architecture.drawio.svg)
+
+### [syntax-sandbox](syntax-sandbox)
+Terraform syntax playground.
