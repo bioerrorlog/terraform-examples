@@ -1,4 +1,5 @@
 # redshift-reat-api
+(WIP)
 
 REST API to enable data consumption from Redshift.
 
