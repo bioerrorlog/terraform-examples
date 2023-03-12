@@ -1,6 +1,6 @@
-# lambda-python
+# IoT API
 
-Simple AWS Lambda with Python.
+API Gateway to publish messages for IoT devices
 
 ## Architecture
 
