@@ -1,5 +1,5 @@
-module "lambda_python" {
-  source = "./modules/lambda-python"
+module "iot_api_gateway" {
+  source = "./modules/iot-api-gateway"
 
   name_prefix     = "demo"
   lambda_schedule = "cron(* * * * ? *)" # every min
