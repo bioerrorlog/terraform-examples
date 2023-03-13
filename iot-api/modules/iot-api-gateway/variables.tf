@@ -14,12 +14,3 @@ variable "log_retention_in_days" {
   type        = number
   default     = 90
 }
-
-variable "lambda_schedule" {
-  description = <<-EOT
-    cron for triggering lambda function.
-    ex) cron(0 0 * * ? *)
-    If null, no schedule will be set.
-  EOT
-  type        = string
-}
