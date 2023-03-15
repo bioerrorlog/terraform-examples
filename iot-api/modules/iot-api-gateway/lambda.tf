@@ -1,7 +1,6 @@
 ####################################################
 # Lambda Function
 ####################################################
-
 resource "aws_lambda_function" "this" {
   function_name = "${var.name_prefix}_hello_lambda"
   description   = "Hello world lambda."
@@ -30,7 +29,6 @@ data "archive_file" "zip" {
 ####################################################
 # CloudWatch Logs
 ####################################################
-
 resource "aws_cloudwatch_log_group" "this" {
   name = "/aws/lambda/${aws_lambda_function.this.function_name}"
 
@@ -39,9 +37,22 @@ resource "aws_cloudwatch_log_group" "this" {
 
 
 ####################################################
+# Permission
+####################################################
+resource "aws_lambda_permission" "apigw" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.this.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
+  source_arn = "arn:aws:execute-api:${local.region}:${local.account_id}:${aws_api_gateway_rest_api.this.id}/*/${aws_api_gateway_method.this.http_method}${aws_api_gateway_resource.this.path}"
+}
+
+
+####################################################
 # IAM
 ####################################################
-
 resource "aws_iam_role" "this" {
   name               = "${var.name_prefix}_lambda"
   assume_role_policy = data.aws_iam_policy_document.assume_lambda.json
