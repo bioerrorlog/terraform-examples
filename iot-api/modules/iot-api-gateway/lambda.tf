@@ -2,14 +2,14 @@
 # Lambda Function
 ####################################################
 resource "aws_lambda_function" "this" {
-  function_name = "${var.name_prefix}_hello_lambda"
-  description   = "Hello world lambda."
+  function_name = "${var.name_prefix}_send_iot_message"
+  description   = "Send IoT message."
 
   filename         = data.archive_file.zip.output_path
   source_code_hash = data.archive_file.zip.output_base64sha256
 
   role    = aws_iam_role.this.arn
-  handler = "hello_lambda.lambda_handler"
+  handler = "send_iot_message.lambda_handler"
   runtime = "python3.9"
 
   environment {
@@ -21,8 +21,8 @@ resource "aws_lambda_function" "this" {
 
 data "archive_file" "zip" {
   type        = "zip"
-  source_file = "${path.module}/lambda/hello_lambda.py"
-  output_path = "${path.module}/lambda/hello_lambda.zip"
+  source_file = "${path.module}/lambda/send_iot_message.py"
+  output_path = "${path.module}/lambda/send_iot_message.zip"
 }
 
 
