@@ -75,6 +75,7 @@ resource "aws_iam_role_policy_attachment" "this" {
   for_each = {
     for i in [
       aws_iam_policy.lambda_logging,
+      data.aws_iam_policy.refs["AWSIoTDataAccess"],
     ] : i.name => i.arn
   }
 

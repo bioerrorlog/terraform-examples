@@ -5,6 +5,7 @@ data "aws_region" "current" {}
 data "aws_iam_policy" "refs" {
   for_each = toset([
     "AmazonAPIGatewayPushToCloudWatchLogs",
+    "AWSIoTDataAccess",
   ])
   name = each.value
 }
