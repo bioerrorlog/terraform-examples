@@ -39,9 +39,9 @@ resource "aws_api_gateway_deployment" "this" {
     #       resources will show a difference after the initial implementation.
     #       It will stabilize to only change when resources change afterwards.
     redeployment = sha1(jsonencode([
-      aws_api_gateway_resource.this.id,
-      aws_api_gateway_method.this.id,
-      aws_api_gateway_integration.this.id,
+      aws_api_gateway_resource.this,
+      aws_api_gateway_method.this,
+      aws_api_gateway_integration.this,
     ]))
   }
 
