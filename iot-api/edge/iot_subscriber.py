@@ -55,11 +55,9 @@ def main():
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
-        pass
-
-    # Disconnect the client
-    iot_client.unsubscribe(topic)
-    iot_client.disconnect()
+        iot_client.unsubscribe(topic)
+        iot_client.disconnect()
+        print("Disconnected.")
 
 
 if __name__ == '__main__':
