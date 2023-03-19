@@ -7,6 +7,9 @@ My terraform example projects.
 ### [count-output](count-output)
 Small code example: `output` with `count` regulated resource.
 
+### [iot-api](iot-api)
+![architecture](iot-api/img/architecture.drawio.svg)
+
 ### [lambda-go](lambda-go)
 ![architecture](lambda-go/img/architecture.drawio.svg)
 
