@@ -7,6 +7,14 @@ terraform {
       version = ">= 4.28"
     }
   }
+
+  # backend "s3" {
+  #   bucket         = "mybucket"
+  #   key            = "demo/terraform.state"
+  #   region         = "ap-northeast-1"
+  #   dynamodb_table = "demo-terraform-lock"
+  #   encrypt        = true
+  # }
 }
 
 provider "aws" {
