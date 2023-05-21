@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Create S3 and DynamoDB resources for Terraform backend'
+Parameters:
+  ResourceNamePrefix:
+    Type: String
+    Description: 'The prefix for the resource names (S3 bucket and DynamoDB table)'
+    Default: 'demo'
+
+Resources:
+  TerraformStateBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Sub '${ResourceNamePrefix}-${AWS::AccountId}-terraform-state'
+      VersioningConfiguration:
+        Status: 'Enabled'
+      LifecycleConfiguration:
+        Rules:
+        - Id: ExpireNoncurrentVersions
+          NoncurrentVersionExpirationInDays: 90
+          Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
+      AccessControl: 'Private'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+
+  DynamoDBLockTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: !Sub '${ResourceNamePrefix}-terraform-lock'
+      AttributeDefinitions:
+        - AttributeName: 'LockID'
+          AttributeType: 'S'
+      KeySchema:
+        - AttributeName: 'LockID'
+          KeyType: 'HASH'
+      BillingMode: 'PAY_PER_REQUEST'
+
+Outputs:
+  TerraformStateBucketName:
+    Description: 'The name of the S3 bucket for storing Terraform state files'
+    Value: !Ref TerraformStateBucket
+
+  DynamoDBLockTableName:
+    Description: 'The name of the DynamoDB table for Terraform state locking'
+    Value: !Ref DynamoDBLockTable
