@@ -1,10 +1,10 @@
 terraform {
-  required_version = ">= 1.2.7"
+  required_version = "== 1.5.0"
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 4.28"
+      version = "== 5.3.0"
     }
   }
 
@@ -23,7 +23,6 @@ provider "aws" {
   default_tags {
     tags = {
       Project = "terraform-examples"
-      Owner   = "bioerrorlog"
     }
   }
 }
