@@ -3,17 +3,22 @@ output "vpc_id" {
   value       = aws_vpc.this.id
 }
 
-output "subnet_id" {
-  description = "The ID of the Subnet"
-  value       = aws_subnet.this.id
+output "public_subnet_01_id" {
+  description = "The ID of the public subnet 01"
+  value       = aws_subnet.public_subnet_01.id
 }
 
-output "route_table_id" {
-  description = "The ID of the Route table"
-  value       = aws_route_table.this.id
+output "public_subnet_02_id" {
+  description = "The ID of the public subnet 02"
+  value       = aws_subnet.public_subnet_02.id
 }
 
-output "vgw_id" {
-  description = "The ID of the Virtual Private Gateway"
-  value       = aws_vpn_gateway.this.id
+output "private_subnet_01_id" {
+  description = "The ID of the private subnet 01"
+  value       = aws_subnet.private_subnet_01.id
+}
+
+output "private_subnet_02_id" {
+  description = "The ID of the private subnet 02"
+  value       = aws_subnet.private_subnet_02.id
 }
