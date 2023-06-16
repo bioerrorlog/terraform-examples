@@ -41,5 +41,5 @@ resource "aws_route_table_association" "private_vgw" {
   }
 
   subnet_id      = each.value
-  route_table_id = aws_route_table.private.id
+  route_table_id = aws_route_table.private_vgw.id
 }
