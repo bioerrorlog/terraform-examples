@@ -1,3 +1,18 @@
+locals {
+  public_subnet_ids = [
+    aws_subnet.public_subnet_01.id,
+    aws_subnet.public_subnet_02.id,
+  ]
+  private_subnet_ids = [
+    aws_subnet.private_subnet_01.id,
+    aws_subnet.private_subnet_02.id,
+  ]
+  all_subnet_ids = concat(
+    local.public_subnet_ids,
+    local.private_subnet_ids,
+  )
+}
+
 resource "aws_subnet" "public_subnet_01" {
   vpc_id            = aws_vpc.this.id
   cidr_block        = var.public_subnet_01.cidr

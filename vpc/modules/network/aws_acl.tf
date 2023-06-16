@@ -25,12 +25,7 @@ resource "aws_network_acl" "this" {
 }
 
 resource "aws_network_acl_association" "this" {
-  for_each = toset([
-    aws_subnet.public_subnet_01.id,
-    aws_subnet.public_subnet_02.id,
-    aws_subnet.private_subnet_01.id,
-    aws_subnet.private_subnet_02.id,
-  ])
+  for_each = toset(local.all_subnet_ids)
 
   subnet_id      = each.value
   network_acl_id = aws_network_acl.this.id
