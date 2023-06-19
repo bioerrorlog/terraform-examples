@@ -25,7 +25,7 @@ resource "aws_network_acl" "this" {
 }
 
 resource "aws_network_acl_association" "this" {
-  for_each = toset(local.all_subnet_ids)
+  for_each = local.all_subnet_ids
 
   subnet_id      = each.value
   network_acl_id = aws_network_acl.this.id

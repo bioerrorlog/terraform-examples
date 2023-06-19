@@ -1,13 +1,13 @@
 locals {
-  public_subnet_ids = [
-    aws_subnet.public_subnet_01.id,
-    aws_subnet.public_subnet_02.id,
-  ]
-  private_subnet_ids = [
-    aws_subnet.private_subnet_01.id,
-    aws_subnet.private_subnet_02.id,
-  ]
-  all_subnet_ids = concat(
+  public_subnet_ids = {
+    public_subnet_01 = aws_subnet.public_subnet_01.id,
+    public_subnet_02 = aws_subnet.public_subnet_02.id,
+  }
+  private_subnet_ids = {
+    private_subnet_01 = aws_subnet.private_subnet_01.id,
+    private_subnet_02 = aws_subnet.private_subnet_02.id,
+  }
+  all_subnet_ids = merge(
     local.public_subnet_ids,
     local.private_subnet_ids,
   )
