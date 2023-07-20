@@ -11,7 +11,7 @@ resource "aws_vpc_endpoint" "interface" {
   vpc_id            = aws_vpc.this.id
 
   security_group_ids = [aws_security_group.interface_vpc_endpoint.id]
-  subnet_ids = local.all_subnet_ids
+  subnet_ids         = values(local.private_subnet_ids) # Restriction: max 1 endpoint per AZ
 
   private_dns_enabled = true
 
