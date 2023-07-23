@@ -1,6 +1,6 @@
-# VPC-NGW
+# VPC-PRIVATE
 
-VPC with Internet Gateway and NAT Gateway.
+VPC with only private subnets.
 
 ## Architecture
 
