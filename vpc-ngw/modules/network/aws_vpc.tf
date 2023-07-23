@@ -9,6 +9,10 @@ resource "aws_vpc" "this" {
   }
 }
 
+
+####################
+# Gateways
+####################
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
 
@@ -17,10 +21,19 @@ resource "aws_internet_gateway" "this" {
   }
 }
 
-resource "aws_vpn_gateway" "this" {
-  vpc_id = aws_vpc.this.id
+resource "aws_nat_gateway" "this" {
+  allocation_id = aws_eip.nat_gateway.id
+  subnet_id     = aws_subnet.public_subnet_01.id
 
   tags = {
-    Name = "${var.sysid}-${var.env}-vgw"
+    Name = "${var.sysid}-${var.env}-ngw"
+  }
+}
+
+resource "aws_eip" "nat_gateway" {
+  vpc = true
+
+  tags = {
+    Name = "${var.sysid}-${var.env}-ngw-eip"
   }
 }
