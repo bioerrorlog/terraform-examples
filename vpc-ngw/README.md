@@ -1,3 +1,3 @@
-# VPC-VGW
+# VPC-NGW
 
-VPC with Internet Gateway and VGW.
+VPC with Internet Gateway and NAT Gateway.
