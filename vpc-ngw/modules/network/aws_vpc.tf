@@ -36,4 +36,6 @@ resource "aws_eip" "nat_gateway" {
   tags = {
     Name = "${var.sysid}-${var.env}-ngw-eip"
   }
+
+  depends_on = [aws_internet_gateway.this]
 }
