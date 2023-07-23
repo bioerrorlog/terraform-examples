@@ -31,7 +31,7 @@ resource "aws_nat_gateway" "this" {
 }
 
 resource "aws_eip" "nat_gateway" {
-  vpc = true
+  domain = "vpc"
 
   tags = {
     Name = "${var.sysid}-${var.env}-ngw-eip"
