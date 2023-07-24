@@ -1,6 +1,6 @@
-# VPC-NGW
+# AWS-BATCH
 
-VPC with Internet Gateway and NAT Gateway.
+Sample for AWS Batch.
 
 ## Architecture
 
