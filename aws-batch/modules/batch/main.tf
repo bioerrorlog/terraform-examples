@@ -60,3 +60,13 @@ resource "aws_security_group" "batch_compute" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_batch_job_queue" "this" {
+  name     = "${var.sysid}-${var.env}-job-queue"
+  state    = "ENABLED"
+  priority = 1
+
+  compute_environments = [
+    aws_batch_compute_environment.this.arn,
+  ]
+}
