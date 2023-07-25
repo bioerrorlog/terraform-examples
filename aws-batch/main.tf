@@ -1,3 +1,15 @@
+module "batch" {
+  source = "./modules/batch"
+
+  sysid = local.sysid
+  env   = local.env
+
+  subnet_ids = [
+    module.network.private_subnet_01_id,
+    module.network.private_subnet_02_id,
+  ]
+}
+
 module "network" {
   source = "./modules/network"
 
