@@ -8,6 +8,8 @@ module "batch" {
     module.network.private_subnet_01_id,
     module.network.private_subnet_02_id,
   ]
+
+  schedule_expression = "rate(5 minutes)"
 }
 
 module "network" {
