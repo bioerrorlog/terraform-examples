@@ -4,6 +4,7 @@ module "batch" {
   sysid = local.sysid
   env   = local.env
 
+  vpc_id = module.network.vpc_id
   subnet_ids = [
     module.network.private_subnet_01_id,
     module.network.private_subnet_02_id,

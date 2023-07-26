@@ -8,6 +8,11 @@ variable "env" {
   type        = string
 }
 
+variable "vpc_id" {
+  description = "VPC id for Batch compute resources"
+  type        = string
+}
+
 variable "subnet_ids" {
   description = "Subnet ids for Batch compute resources"
   type        = list(string)

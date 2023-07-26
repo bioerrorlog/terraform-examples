@@ -51,7 +51,8 @@ resource "aws_batch_compute_environment" "this" {
 }
 
 resource "aws_security_group" "batch_compute" {
-  name = "${var.sysid}-${var.env}-batch-compute-sg"
+  name   = "${var.sysid}-${var.env}-batch-compute-sg"
+  vpc_id = var.vpc_id
 
   egress {
     from_port   = 0
