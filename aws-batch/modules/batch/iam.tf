@@ -102,7 +102,7 @@ resource "aws_iam_role_policy_attachment" "trigger_batch" {
     trigger_batch = aws_iam_policy.trigger_batch,
   }
 
-  role       = aws_iam_role.batch_service.name
+  role       = aws_iam_role.trigger_batch.name
   policy_arn = each.value.arn
 }
 
