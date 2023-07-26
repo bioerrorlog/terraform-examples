@@ -8,7 +8,7 @@ resource "aws_batch_job_definition" "this" {
 
   container_properties = jsonencode({
     command = ["aws", "s3", "ls"]
-    image   = "public.ecr.aws/amazonlinux/amazonlinux:2023"
+    image   = "amazon/aws-cli:2.13.4"
 
     jobRoleArn       = aws_iam_role.ecs_task.arn
     executionRoleArn = aws_iam_role.ecs_task_execution.arn
