@@ -44,12 +44,12 @@ resource "aws_iam_role" "ecs_task_execution" {
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution" {
-  for_each = toset([
-    data.aws_iam_policy.refs["AmazonECSTaskExecutionRolePolicy"].arn,
-  ])
+  for_each = {
+    AmazonECSTaskExecutionRolePolicy = data.aws_iam_policy.refs["AmazonECSTaskExecutionRolePolicy"],
+  }
 
   role       = aws_iam_role.ecs_task_execution.name
-  policy_arn = each.value
+  policy_arn = each.value.arn
 }
 
 
@@ -62,12 +62,12 @@ resource "aws_iam_role" "ecs_task" {
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task" {
-  for_each = toset([
-    data.aws_iam_policy.refs["AmazonS3ReadOnlyAccess"].arn,
-  ])
+  for_each = {
+    AmazonS3ReadOnlyAccess = data.aws_iam_policy.refs["AmazonS3ReadOnlyAccess"],
+  }
 
   role       = aws_iam_role.ecs_task.name
-  policy_arn = each.value
+  policy_arn = each.value.arn
 }
 
 
@@ -80,12 +80,12 @@ resource "aws_iam_role" "batch_service" {
 }
 
 resource "aws_iam_role_policy_attachment" "batch_service" {
-  for_each = toset([
-    data.aws_iam_policy.refs["AWSBatchServiceRole"].arn,
-  ])
+  for_each = {
+    AWSBatchServiceRole = data.aws_iam_policy.refs["AWSBatchServiceRole"],
+  }
 
   role       = aws_iam_role.batch_service.name
-  policy_arn = each.value
+  policy_arn = each.value.arn
 }
 
 
@@ -115,7 +115,7 @@ resource "aws_iam_policy" "trigger_batch" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
+        Effect = "Allow"
         Action = [
           "batch:SubmitJob",
         ]
