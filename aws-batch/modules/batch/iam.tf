@@ -22,6 +22,18 @@ data "aws_iam_policy_document" "assume_batch" {
   }
 }
 
+data "aws_iam_policy_document" "assume_events" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
+    }
+  }
+}
+
 
 ######################
 # Task Execution Role
@@ -74,4 +86,45 @@ resource "aws_iam_role_policy_attachment" "batch_service" {
 
   role       = aws_iam_role.batch_service.name
   policy_arn = each.value
+}
+
+
+######################
+# Events Role
+######################
+resource "aws_iam_role" "trigger_batch" {
+  name               = "${var.sysid}-${var.env}-trigger-batch-role"
+  assume_role_policy = data.aws_iam_policy_document.assume_events.json
+}
+
+resource "aws_iam_role_policy_attachment" "trigger_batch" {
+  for_each = {
+    trigger_batch = aws_iam_policy.trigger_batch,
+  }
+
+  role       = aws_iam_role.batch_service.name
+  policy_arn = each.value.arn
+}
+
+resource "aws_iam_policy" "trigger_batch" {
+  name        = "${var.sysid}-${var.env}-trigger-batch"
+  path        = "/"
+  description = "IAM policy for trigger the AWS Batch resources"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action = [
+          "batch:SubmitJob",
+        ]
+        Resource = [
+          "${aws_batch_job_definition.this.arn}:*",
+          aws_batch_job_queue.this.arn,
+          "arn:aws:batch:${local.region}:${local.account_id}:job/*",
+        ]
+      }
+    ]
+  })
 }
