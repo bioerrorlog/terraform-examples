@@ -120,7 +120,7 @@ resource "aws_iam_policy" "trigger_batch" {
           "batch:SubmitJob",
         ]
         Resource = [
-          "${aws_batch_job_definition.this.arn}:*",
+          "arn:aws:batch:${local.region}:${local.account_id}:job-definition/${aws_batch_job_definition.this.name}:*",
           aws_batch_job_queue.this.arn,
           "arn:aws:batch:${local.region}:${local.account_id}:job/*",
         ]
