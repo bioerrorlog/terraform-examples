@@ -21,3 +21,6 @@ Small code example: `output` with `count` regulated resource.
 
 ### [syntax-sandbox](syntax-sandbox)
 Terraform syntax playground.
+
+### [vpc-ngw](vpc-ngw)
+![architecture](vpc-ngw/img/architecture.drawio.svg)
