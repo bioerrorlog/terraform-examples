@@ -24,3 +24,9 @@ Terraform syntax playground.
 
 ### [vpc-ngw](vpc-ngw)
 ![architecture](vpc-ngw/img/architecture.drawio.svg)
+
+### [vpc-private](vpc-private)
+![architecture](vpc-private/img/architecture.drawio.svg)
+
+### [vpc-vgw](vpc-vgw)
+![architecture](vpc-vgw/img/architecture.drawio.svg)
