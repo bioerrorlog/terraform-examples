@@ -8,13 +8,8 @@ terraform {
     }
   }
 
-  # backend "s3" {
-  #   bucket         = "mybucket"
-  #   key            = "demo/terraform.state"
-  #   region         = "ap-northeast-1"
-  #   dynamodb_table = "demo-terraform-lock"
-  #   encrypt        = true
-  # }
+  # backend設定そのものは記載しない
+  backend "s3" {}
 }
 
 provider "aws" {
